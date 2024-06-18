@@ -3,9 +3,12 @@ package com.example.myapplication.UI;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 
@@ -15,9 +18,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.entities.Vacation;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class VacationAdapter extends RecyclerView.Adapter<VacationAdapter.VacationViewHolder> {
+public class VacationAdapter extends RecyclerView.Adapter<VacationAdapter.VacationViewHolder>
+                implements Filterable {
+    private List<Vacation> mAllVacations;
+    private List<Vacation> mVacations;
+    private final Context context;
+    private final LayoutInflater mInflater;
+
+
+
+
 
     public class VacationViewHolder extends RecyclerView.ViewHolder {
         private final TextView vacationItemView;
@@ -42,9 +55,6 @@ public class VacationAdapter extends RecyclerView.Adapter<VacationAdapter.Vacati
         }
     }
 
-    private List<Vacation> mVacations;
-    private final Context context;
-    private final LayoutInflater mInflater;
 
     public VacationAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
@@ -77,8 +87,50 @@ public class VacationAdapter extends RecyclerView.Adapter<VacationAdapter.Vacati
         } else return 0;
     }
 
+    @Override
+    public Filter getFilter() {
+        return vacationFilter;
+    }
+
+    private Filter vacationFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Vacation> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(mAllVacations);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (Vacation vacation : mAllVacations) {
+                    if (vacation.getVacationName().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(vacation);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mVacations.clear();
+            mVacations.addAll((List<Vacation>) results.values);
+            notifyDataSetChanged();
+        }
+    };
+
     public void setVacations(List<Vacation> vacations) {
-        mVacations = vacations;
+
+        if (vacations != null) {
+            mAllVacations = new ArrayList<>(vacations);
+            mVacations = new ArrayList<>(vacations);
+        } else {
+            mAllVacations = new ArrayList<>();
+            mVacations = new ArrayList<>();
+        }
         notifyDataSetChanged();
+
     }
 }
