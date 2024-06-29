@@ -13,13 +13,13 @@ by the user as needed.
 
 Directions to operate the application:
 
-1. Enter the application on the home page after entering "username" in the username field, and 
+1. Enter the application on the login home page after entering "username" in the username field, and 
    "password" in the password field. Click submit when done entering information.
 2. On successful login, you will enter the Vacation list page. Here you'll see any vacations you've already saved. To add
    a new vacation click on the button at the bottom right of the screen. To search for a specific vacation
    use the search bar at the top of the page and search for vacation name and it will populate that vacation
    and all other saved vacations will temporarily disappear. 
-   To see a details of a saved vacations, click on the Vacation name.
+   To see details of a saved vacations, click on the Vacation name.
 3. You'll enter the Vacation Details and Excursions page. Here you'll see all vacation details like 
    name, hotel, start and end date and any excursions that have been saved to that vacation. To add
    a new vacation click on the button at the bottom right of the screen.
@@ -57,7 +57,7 @@ Directions to operate the application:
 11. To set up notifications for your saved excursions, navigate to the Excursion details page by
    clicking on a saved excursion on the Vacation Details and Excursions page. You can then click
    the top right corner menu and select Notifications. A message will appear at the bottom of the
-   screen saying "Alarms set Successfully" as well as a message stating the title of your Excursion
+   screen saying "Notifications set for (name of excursion)" as well as a message stating the title of your Excursion
    and date.
 
 Android Version: Android 14.0 API 34 "UpsideDownCake"
